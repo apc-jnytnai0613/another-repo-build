@@ -1,0 +1,22 @@
+name: Build from another repo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+   build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: apc-jnytnai0613/oidc-test
+          path: oidc-test
+        
+      - name: Build Image & Push
+        working-directory: oidc-test
+        run: |
+            docker build . -t buildtest
